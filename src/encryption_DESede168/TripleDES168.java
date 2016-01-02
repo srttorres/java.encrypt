@@ -9,12 +9,12 @@ import sun.misc.*;
 public class TripleDES168 {
 	
 
-	private static final String TIPO ="DESede";
+	
 
-
-	public static String cifrar (String msg, SecretKey k) throws Exception {
+	//cifrado es el tipo de cifrado con el que se desa cifrar
+	public static String cifrar (String msg, SecretKey k, String cifrado) throws Exception {
 		
-		Cipher c = Cipher.getInstance(TIPO);
+		Cipher c = Cipher.getInstance(cifrado);
 		c.init(Cipher.ENCRYPT_MODE, k);
 		byte[] encVal = c.doFinal(msg.getBytes());
 		String encryptedValue = new BASE64Encoder().encode(encVal);

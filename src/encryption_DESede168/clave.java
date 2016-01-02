@@ -5,21 +5,21 @@ import java.util.Base64;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 
-public class clave {
-	private static final String TIPO ="DESede";
-	private static final byte[] CLAVE = new byte[]{'1','2','3','4','5','6','7','8','9','0',
-												   '1','2','3','4','5','6','7','8','9','0',
-												   '1'};
-	public static void main(String args[]) throws Exception{
-	SecretKey claveGenerada1 = generateKey();
-	String stringClaveGenerada = Base64.getEncoder().encodeToString(claveGenerada1.getEncoded());
-	System.out.println("Clave generada: " + stringClaveGenerada);
-	}
-	
-	private static SecretKey generateKey() throws Exception {
-		KeyGenerator generador = KeyGenerator.getInstance(TIPO);
+public class clave {	
+public String claveAString(SecretKey c){
+		String stringClave = Base64.getEncoder().encodeToString(c.getEncoded());
+		return stringClave;
+	}	
+	//n es el número de claves que se desean generar
+	//cifrado es el tipo de cifrado que se desea aplicar.
+	//Devuelve el array de claves generadas
+public static SecretKey[] generarClave(int n, String cifrado) throws Exception {
+	SecretKey[] arrayClaves=new SecretKey[n];
+	for(int i = 0; i<n; i++){
+		KeyGenerator generador = KeyGenerator.getInstance(cifrado);
 		SecretKey claveGenerada = generador.generateKey();
-		return claveGenerada;
+		arrayClaves[i]=claveGenerada;
 	}
-
+	return arrayClaves;
 }
+}//clase clave
