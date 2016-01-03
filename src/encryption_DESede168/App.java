@@ -20,11 +20,12 @@ public class App {
 	public static void main(String args[]) throws Exception{
 		SecretKey[] skArray = clave.generarClave(1, TIPO);
 		SecretKey sk = skArray[0];
-		String message1 = "THIS IS SPARTA";//mensaje de longitud 14 bytes
+		String message1 = "THIS IS SPARTA";//mensaje de longitud 14 caracteres
 		//0101010001001000010010010101001100100000010010010101001100100000010100110101000001000001010100100101010001000001
 		String message2 = "UHIS IS SPARTA";//mensaje con el octavo bit cambiado
 		//0101010101001000010010010101001100100000010010010101001100100000010100110101000001000001010100100101010001000001
-		String clave1 = Base64.getEncoder().encodeToString(sk.getEncoded());//clave de 32 bits
+		String clave1 = Base64.getEncoder().encodeToString(sk.getEncoded());//clave de 32 caracteres
+		
 					
 		
 		//la clave 1 se pasa a bytes y después se convierte a secret key, finalmente se cifra
@@ -35,8 +36,8 @@ public class App {
 		//la clave 2 se pasa a bytes, se cambia un bit y después se convierte a secret key, finalmente se cifra
 		byte[] claveEnBytes2 = Base64.getDecoder().decode(clave1);
 		claveEnBytes2 = ligeroCambio(claveEnBytes2);
-		System.out.println(Arrays.toString(claveEnBytes1));
-		System.out.println(Arrays.toString(claveEnBytes2));
+		//System.out.println(Arrays.toString(claveEnBytes1));
+		//System.out.println(Arrays.toString(claveEnBytes2));
 		SecretKey claveCambiada = new SecretKeySpec(claveEnBytes2, 0, claveEnBytes2.length, TIPO);	
 		String clave2 = Base64.getEncoder().encodeToString(claveCambiada.getEncoded());
 		String encryptedMessage2 = TripleDES168.cifrar(message1, claveCambiada, TIPO);		
@@ -48,11 +49,11 @@ public class App {
 		
 		System.out.println("#Mensaje en claro:\t" + message1);				
 		System.out.println("Clave:\t\t\t" + clave1);
-		//System.out.println("##Mensaje cifrado:\t" + encryptedMessage1);
+		System.out.println("##Mensaje cifrado:\t" + encryptedMessage1);
 		System.out.println();		
 		System.out.println("#Mensaje en claro:\t" + message1);
 		System.out.println("Clave:\t\t\t" + clave2);
-		//System.out.println("##Mensaje cifrado2:\t" + encryptedMessage2);
+		System.out.println("##Mensaje cifrado2:\t" + encryptedMessage2);
 		System.out.println();		
 		System.out.println("#Mensaje en claro:\t" + message2);
 		System.out.println("Clave:\t\t\t" + clave1);
@@ -69,14 +70,15 @@ public class App {
 		byte[] byteArrayTransformado = byteArray;
 		byte primerByte = byteArray[0];
 		boolean[] bits = byteToBooleanArray(primerByte);		
-		String s = booleanArrayToString(bits);
+		//System.out.println(bits[0] +","+bits[1]+","+bits[2]+","+bits[3]+","+bits[4]+","+bits[5] +","+bits[6]+","+bits[7]);
+		String s = booleanArray8ToString(bits);		
 		bits[7]=!bits[7];
-		String s2 = booleanArrayToString(bits);		
+		String s2 = booleanArray8ToString(bits);		
 		byte primerByteCambiado = stringToByte(s2);
 		byteArrayTransformado[0]=primerByteCambiado;
-		//System.out.println(bits[0] +","+bits[1]+","+bits[2]+","+bits[3]+","+bits[4]+","+bits[5] +","+bits[6]+","+bits[7]);
-		System.out.println(s);
-		System.out.println(s2);
+		
+		//System.out.println(s);
+		//System.out.println(s2);
 		return byteArrayTransformado;
 	}
 	
@@ -86,20 +88,33 @@ public class App {
          //System.out.println(numberByte);
 		return numberByte;
 	}
-
+	public static boolean[] byteArrayToBooleanArray(byte[] xs) {
+		boolean bss[] = new boolean[8*xs.length];
+		boolean bs[] =new boolean[8];
+		int k = 0;
+		for (int i=0;i<xs.length;i++){
+			bs=byteToBooleanArray(xs[i]);
+			for(int j = 0;j<8;j++){				
+				bss[k]=bs[j];
+				k++;
+			}
+		}
+		return bss;
+	}
 	public static boolean[] byteToBooleanArray(byte x) {
 	    boolean bs[] = new boolean[8];
 	    bs[0] = ((x & 0x01) != 0);
 	    bs[1] = ((x & 0x02) != 0);
-	    bs[2] = ((x & 0x03) != 0);
-	    bs[3] = ((x & 0x04) != 0);
-	    bs[4] = ((x & 0x05) != 0);
-	    bs[5] = ((x & 0x06) != 0);
-	    bs[6] = ((x & 0x07) != 0);
-	    bs[7] = ((x & 0x08) != 0);
+	    bs[2] = ((x & 0x04) != 0);
+	    bs[3] = ((x & 0x08) != 0);
+	    bs[4] = ((x & 0x10) != 0);
+	    bs[5] = ((x & 0x20) != 0);
+	    bs[6] = ((x & 0x40) != 0);
+	    bs[7] = ((x & 0x80) != 0);
 	    return bs;
 	}
-	public static String booleanArrayToString(boolean[] b){
+	//solo booleanos de longitud 8
+	public static String booleanArray8ToString(boolean[] b){
 		String s = "00000000";
 		for (int i = 0;i<8;i++){
 			if (b[i]){
