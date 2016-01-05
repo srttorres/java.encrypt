@@ -6,10 +6,7 @@ import javax.crypto.spec.SecretKeySpec;
 //import javax.crypto.spec.SecretKeySpec;
 import sun.misc.*;
 
-public class TripleDES168 {
-	
-
-	
+public class Cifrado {
 
 	//cifrado es el tipo de cifrado con el que se desa cifrar
 	public static String cifrar (String msg, SecretKey k, String cifrado) throws Exception {
