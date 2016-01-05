@@ -1,0 +1,19 @@
+Se ha inicializado N=1 pero en el estudio del algoritmo se ha utilizado N=30, se puede probar con el tamaño de muestra que se crea conveniente.
+
+todas las salidas tiene este aspecto:
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#Mensaje en claro:	THIS IS SPARTA!                                         <--- en primer lugar la tupla de mensaje, clave, cifrado sin cambios
+Clave:			v0Xfs2SPsMidaEw3ywSuQ8Q4v9lYiTS2
+##Mensaje cifrado:	YFA3rTlE8rokPM5XyRfpKA==
+
+#Mensaje en claro:	THIS IS SPARTA!                                         <--- en segundo lugar la tupla con un bit cambiado en el primer byte de la clave
+Clave:			/EXfs2SPsMidaEw3ywSuQ8Q4v9lYiTS2
+##Mensaje cifrado2:	sSNJtHmJfU/ufyF5UDGNag==
+
+#Mensaje en claro:	UHIS IS SPARTA!						<--- en tercer lugar la tupla con un bit cambiado en el primer byte del mensaje
+Clave:			v0Xfs2SPsMidaEw3ywSuQ8Q4v9lYiTS2
+##Mensaje cifrado3:	JogjK57jRWEkPM5XyRfpKA==
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+vector de distanciasC: 75							<--- finalmente los vectores de distancias separados con tabulaciones para copiarlo a una hoja excel
+vector de distanciasM: 40	
