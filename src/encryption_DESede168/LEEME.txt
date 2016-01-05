@@ -1,5 +1,5 @@
 Se ha inicializado N=1 pero en el estudio del algoritmo se ha utilizado N=30, se puede probar con el tamaño de muestra que se crea conveniente.
-
+Los diferentes valores del mensaje se han comentado dejando solo message1 y message2, se pueden cambiar los valores del string al que se crea conveniente.
 todas las salidas tiene este aspecto:
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
